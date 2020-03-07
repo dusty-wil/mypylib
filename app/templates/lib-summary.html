@@ -1,0 +1,16 @@
+{% extends "app-shell.html" %}
+{% block content %}
+    {% for book in books %}
+    <div>
+        <h4>{{ book.title }}</h4>
+        <p>By {{ book.author }}</p>
+        {% if book.purch_date %}
+        <p>Date Purchased: {{ book.purch_date }}</p>
+        {% endif %}
+        {% if book.notes %}
+        <p>Notes:</p>
+        <p>{{ book.notes }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% endblock %}

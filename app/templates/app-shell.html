@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+    {% if title %}
+        MyPyLib: {{ title }}
+    {% else %}
+        My Little Python Library
+    {% endif %}
+    </title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/lib-summary">Summary</a></li>
+        </ul>
+    </div>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
