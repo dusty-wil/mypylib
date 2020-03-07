@@ -9,14 +9,27 @@
         My Little Python Library
     {% endif %}
     </title>
+<!--    <link rel="stylesheet" href="/static/css/normalize.css">-->
+<!--    <link rel="stylesheet" href="/static/css/skeleton.css">-->
 </head>
 <body>
     <div>
+        My Little Python Library
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/lib-summary">Summary</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('summary') }}">Summary</a></li>
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
         </ul>
     </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
     <div>
         {% block content %}{% endblock %}
     </div>
