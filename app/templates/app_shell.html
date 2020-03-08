@@ -17,11 +17,11 @@
         My Little Python Library
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('summary') }}">Summary</a></li>
             {% if current_user.is_anonymous %}
-                <li><a href="{{ url_for('login') }}">Log In</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
             {% else %}
-                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                <li><a href="{{ url_for('my_library.summary') }}">My Library</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
             {% endif %}
         </ul>
     </div>

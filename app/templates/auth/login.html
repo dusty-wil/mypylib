@@ -1,4 +1,4 @@
-{% extends "app-shell.html" %}
+{% extends "app_shell.html" %}
 
 {% block content %}
     <h2>Log In</h2>
@@ -21,7 +21,7 @@
         <p>{{ form.remember() }} {{ form.remember.label }}</p>
         <p>{{ form.login() }}</p>
         <p>
-            Or register <a href="{{ url_for('register') }}">here</a>
+            Or register <a href="{{ url_for('auth.register') }}">here</a>
         </p>
     </form>
 {% endblock %}

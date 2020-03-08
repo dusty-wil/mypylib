@@ -1,7 +1,8 @@
-{% extends "app-shell.html" %}
+{% extends "app_shell.html" %}
 
 {% block content %}
     <h1>My Library</h1>
+    <h4>{{ current_user.email }}</h4>
     {% for book in books %}
     <div>
         <h4>{{ book.title }}</h4>
