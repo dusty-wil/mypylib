@@ -10,6 +10,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     books = db.relationship("Book", secondary="user_books", backref=db.backref("User"))
 
+    def add_book_to_library(self, book_meta):
+        self.books.append(book_meta)
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
 

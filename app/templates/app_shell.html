@@ -21,6 +21,7 @@
                 <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
             {% else %}
                 <li><a href="{{ url_for('my_library.summary') }}">My Library</a></li>
+                <li><a href="{{ url_for('my_library.add_book') }}">Add Book</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
             {% endif %}
         </ul>

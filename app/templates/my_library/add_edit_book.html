@@ -1,0 +1,47 @@
+{% extends "app_shell.html" %}
+
+{% block content %}
+    <h1>Add/Edit Book</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br/>
+            {{ form.title(size=64) }}
+            {% for error in form.title.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.author.label }}<br/>
+            {{ form.author(size=64) }}
+            {% for error in form.author.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.isbn.label }}<br/>
+            {{ form.isbn(size=16) }}
+            {% for error in form.isbn.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.purch_date.label }}<br/>
+            {{ form.purch_date() }}
+            {% for error in form.purch_date.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.notes.label }}<br/>
+            {{ form.notes(cols=32, rows=4) }}
+            {% for error in form.notes.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+
+{% endblock %}
