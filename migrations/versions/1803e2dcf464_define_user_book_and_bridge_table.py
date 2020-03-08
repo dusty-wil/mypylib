@@ -1,8 +1,8 @@
 """define user book and bridge table
 
-Revision ID: ed9a85ed5e46
+Revision ID: 1803e2dcf464
 Revises: 
-Create Date: 2020-03-07 21:19:52.918694
+Create Date: 2020-03-08 00:52:59.342015
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ed9a85ed5e46'
+revision = '1803e2dcf464'
 down_revision = None
 branch_labels = None
 depends_on = None

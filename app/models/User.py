@@ -1,4 +1,5 @@
 from app import db
+from app import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -17,3 +18,9 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return "<User {}>".format(self.email)
+
+
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
