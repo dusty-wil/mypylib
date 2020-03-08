@@ -1,0 +1,17 @@
+{% extends "app_shell.html" %}
+
+{% block content %}
+    <h1>All Books</h1>
+    {% for book in books %}
+    <ul>
+        <li>
+            <span>{{ book.title }}</span>
+            <span>By {{ book.author }}</span>
+            <span>ISBN {{ book.isbn }}</span>
+            <span>
+                <a href="{{ url_for('my_library.edit_book', book_id=book.id) }}">Edit book</a>
+            </span>
+        </li>
+    </ul>
+    {% endfor %}
+{% endblock %}

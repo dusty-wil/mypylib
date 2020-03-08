@@ -3,17 +3,24 @@
 {% block content %}
     <h1>My Library</h1>
     <h4>{{ current_user.email }}</h4>
-    {% for book in books %}
-    <div>
-        <h4>{{ book.title }}</h4>
-        <p>By {{ book.author }}</p>
-        {% if book.purch_date %}
-        <p>Date Purchased: {{ book.purch_date }}</p>
-        {% endif %}
-        {% if book.notes %}
-        <p>Notes:</p>
-        <p>{{ book.notes }}</p>
-        {% endif %}
-    </div>
+    {% for entry in lib %}
+    <ul>
+        <li>
+            <span>{{ entry.book.title }}</span>
+            <span>By {{ entry.book.author }}</span>
+            <span>ISBN {{ entry.book.isbn }}</span>
+            {% if entry.purch_date %}
+                <span>Date Purchased: {{ entry.purch_date }}</span>
+            {% endif %}
+            {% if entry.notes %}
+                <span>Notes:</span>
+                <span>{{ entry.notes }}</span>
+            {% endif %}
+            <span>
+                <a href="{{ url_for('my_library.del_book_from_lib', book_id=entry.book.id) }}">Remove from my library</a> |
+                <a href="{{ url_for('my_library.edit_lib_entry', book_id=entry.book.id) }}">Edit library entry</a>
+            </span>
+        </li>
+    </ul>
     {% endfor %}
 {% endblock %}
