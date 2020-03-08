@@ -4,8 +4,10 @@ from app import db
 from flask import render_template, flash, redirect, url_for
 from flask_login import current_user, login_required
 
-from app.my_library.forms.BookForm import BookForm
+from app.my_library.forms.BookLibForm import BookLibForm
 from app.my_library.forms.LibEntryForm import LibEntryForm
+from app.my_library.forms.BookForm import BookForm
+
 from app.models.Book import Book
 from app.models.UserBooks import UserBooks
 from app.models.User import User
@@ -26,7 +28,7 @@ def summary():
 @bp.route("/library/books/add", methods=["GET", "POST"])
 @login_required
 def add_book_to_lib():
-    form = BookForm()
+    form = BookLibForm()
 
     if form.validate_on_submit():
         add_msg = "{} has been added to your library!".format(form.title.data)
@@ -82,22 +84,24 @@ def del_book_from_lib(book_id):
 @bp.route("/library/books/edit/<int:book_id>", methods=["GET", "POST"])
 @login_required
 def edit_lib_entry(book_id):
-    form = LibEntryForm()
     book = Book.query.filter_by(id=book_id).first()
     lib_entry = UserBooks.query.filter_by(user_id=current_user.id, book_id=book_id).first()
 
+    if lib_entry is None or book is None:
+        return redirect(url_for("my_library.summary"))
+
+    form = LibEntryForm()
+
     if form.validate_on_submit():
-        if lib_entry:
-            lib_entry.purch_date = form.purch_date.data
-            lib_entry.notes = form.notes.data
-            db.session.commit()
+        lib_entry.purch_date = form.purch_date.data
+        lib_entry.notes = form.notes.data
+        db.session.commit()
 
-            flash("Library entry for {} updated!".format(book.title))
-            return redirect(url_for("my_library.summary"))
+        flash("Library entry for {} updated!".format(book.title))
+        return redirect(url_for("my_library.summary"))
 
-    if lib_entry:
-        form.purch_date.data = lib_entry.purch_date
-        form.notes.data = lib_entry.notes
+    form.purch_date.data = lib_entry.purch_date
+    form.notes.data = lib_entry.notes
 
     return render_template(
         "my_library/edit_library_entry.html",
@@ -105,33 +109,6 @@ def edit_lib_entry(book_id):
         form=form,
         book=book
     )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    book = Book.query.filter_by(id=book_id).first()
-    if book:
-        current_user.books.remove(book)
-        db.session.commit()
-        flash("Entry for {} removed from your library!".format(book.title))
-
-    return redirect(url_for("my_library.summary"))
 
 
 @bp.route("/books")
@@ -150,5 +127,26 @@ def book_list():
 @login_required
 def edit_book(book_id):
     book = Book.query.filter_by(id=book_id).first()
-    return redirect(url_for("my_library.all_books"))
 
+    if book is None:
+        return redirect(url_for("my_library.summary"))
+
+    form = BookForm()
+
+    if form.validate_on_submit():
+        book.title = form.title.data
+        book.author = form.author.data
+        db.session.commit()
+
+        flash("Book entry for ISBN {} updated!".format(book.isbn))
+        return redirect(url_for("my_library.summary"))
+
+    form.title.data = book.title
+    form.author.data = book.author
+
+    return render_template(
+        "my_library/edit_book.html",
+        title="Edit Book",
+        form=form,
+        book=book
+    )
