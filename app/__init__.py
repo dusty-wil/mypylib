@@ -1,10 +1,18 @@
 from flask import Flask
 from Conf import Conf
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(Conf)
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 from app import routes
 
-if __name__ == "__main__":
-    app.run(threaded=True, port=5000)
+from app.models import User, Book, UserBooks
+
+
+# if __name__ == "__main__":
+#     app.run(threaded=True, port=5000)
