@@ -1,17 +1,25 @@
 {% extends "app_shell.html" %}
 
 {% block content %}
-    <h1>All Books</h1>
-    {% for book in books %}
-    <ul>
-        <li>
-            <span>{{ book.title }}</span>
-            <span>By {{ book.author }}</span>
-            <span>ISBN {{ book.isbn }}</span>
-            <span>
-                <a href="{{ url_for('my_library.edit_book', book_id=book.id) }}">Edit book</a>
-            </span>
-        </li>
+{% if books %}
+    <ul class="book-list-summary">
+        {% for book in books %}
+            <li>
+                <span class="book-list-title">{{ book.title }}</span>
+                <span class="book-list-author">By {{ book.author }}</span>
+                <span class=book-list-isbn><b>ISBN</b> {{ book.isbn }}</span>
+                <span class="book-list-links">
+                    <a href="{{ url_for('my_library.edit_book', book_id=book.id) }}">Edit book</a> |
+                    <a href="">Add to my library</a>
+                </span>
+            </li>
+        {% endfor %}
     </ul>
-    {% endfor %}
+{% else %}
+<h4>No one has added any books yet</h4>
+<p>
+    Maybe yours can be the first! Click <a href="{{ url_for('my_library.add_book_to_lib') }}">ADD BOOK TO LIBRARY</a>
+    to get started.
+</p>
+{% endif %}
 {% endblock %}

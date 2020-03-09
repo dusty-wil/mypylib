@@ -1,5 +1,5 @@
 Hi, {{ recipient }},
-{{ user_email }} has shared their My Little Python Library with you. Check it out below!
+{{ user_email }} has shared their My Python Library with you. Check it out below!
 
 {% for entry in lib %}
 ----------------------------------------

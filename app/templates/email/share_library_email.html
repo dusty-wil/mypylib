@@ -1,0 +1,25 @@
+<p>
+    Hi, {{ recipient }},
+</p>
+<p>
+    {{ user_email }} has shared their My Python Library with you. Check it out below!
+</p>
+<ul>
+    {% for entry in lib %}
+    <li>
+        <span>{{ entry.book.title }}</span>
+        <span>By {{ entry.book.author }}</span>
+        <span>ISBN {{ entry.book.isbn }}</span>
+        {% if entry.purch_date %}
+            <span>Date Purchased: {{ entry.purch_date }}</span>
+        {% endif %}
+        {% if entry.notes %}
+            <span>Notes:</span>
+            <span>{{ entry.notes }}</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+<p>
+    Create or edit your own library: <a href="{{ url_for('my_library.index', _external=True) }}">My Python Library</a>
+</p>

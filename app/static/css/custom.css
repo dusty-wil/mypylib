@@ -7,11 +7,35 @@ input[type="submit"]
     border: none;
 }
 
+input[type="text"],
+input[type="password"]
+{
+    width: 100%;
+}
+
+textarea
+{
+    width: 100%;
+    height: 100px;
+}
+
 form
 {
     background-color: #efefef;
     padding: 30px;
     border-radius: 10px;
+}
+
+h4
+{
+    margin-bottom: 0px;
+}
+
+nav
+{
+    margin-bottom: 30px;
+    background-color: #efefef;
+    padding: 20px;
 }
 
 .navbar-list
@@ -27,15 +51,29 @@ form
     margin-bottom: 0;
 }
 
+.navbar-item h1 a,
+.navbar-item h1 a:hover
+{
+    color: #2196F3;
+    text-decoration: none;
+}
+
+
+
+.navbar-item-right
+{
+    float: right !important;
+}
+
 .navbar-link
 {
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: .2rem;
     margin-right: 35px;
     text-decoration: none;
-    line-height: 6.5rem;
+    line-height: 4.5rem;
     color: #222;
 }
 
@@ -61,10 +99,96 @@ form
   color: white;
 }
 
-.info
+.info,
+.message
 {
   background-color: #2196F3;
   color: white;
 }
+
+
+.inline-label
+{
+    display: inline-block;
+}
+
+.book-list-summary
+{
+    list-style-type: none;
+}
+
+.book-list-summary li
+{
+    border-bottom: 1px solid #dedede;
+    padding: 10px;
+}
+
+.book-list-title
+{
+    font-size: 20px;
+    display: block;
+}
+
+.book-list-author
+{
+    display: inline-block;
+    float: left;
+}
+
+
+.book-list-isbn
+{
+    display: inline-block;
+    float: right;
+}
+
+.book-list-purch-date
+{
+    display: block;
+    margin-top: 5px;
+    clear: both;
+
+}
+
+.book-list-notes
+{
+    display: block;
+}
+
+.book-list-links
+{
+    display: block;
+    margin-top: 5px;
+    clear: both;
+}
+
+.add-book-to-lib-form-full-row
+{
+    display: block;
+}
+
+
+.add-book-to-lib-form-full-row input
+{
+    width: 100%;
+}
+
+
+
+
+.add-book-to-lib-form-inline-row
+{
+    display: inline-block;
+    margin-right: 100px;
+}
+
+.form-error
+{
+    padding: 12px;
+    border-radius: 3px;
+    display: block;
+    margin: 10px 0px;
+}
+
 
 

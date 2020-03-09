@@ -1,47 +1,46 @@
 {% extends "app_shell.html" %}
 
 {% block content %}
-    <h1>Add a Book to Your Library</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}<br/>
-            {{ form.title(size=64) }}
-            {% for error in form.title.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.author.label }}<br/>
-            {{ form.author(size=64) }}
-            {% for error in form.author.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.isbn.label }}<br/>
-            {{ form.isbn(size=16) }}
-            {% for error in form.isbn.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.purch_date.label }}
-            {{ form.purch_date() }}
-            {% for error in form.purch_date.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.notes.label }}
-            {{ form.notes(cols=32, rows=4) }}
-            {% for error in form.notes.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <span class="add-book-to-lib-form-full-row">
+        {{ form.title.label }}
+        {{ form.title(size=64) }}
+    </span>
+    <span class="add-book-to-lib-form-full-row">
+        {{ form.author.label }}
+        {{ form.author(size=64) }}
+    </span>
+    <span class="add-book-to-lib-form-inline-row">
+        {{ form.isbn.label }}
+        {{ form.isbn(size=16) }}
+    </span>
+    <span class="add-book-to-lib-form-inline-row">
+        {{ form.purch_date.label }}
+        {{ form.purch_date() }}
+    </span>
+    <span class="add-book-to-lib-form-full-row">
+        {{ form.notes.label }}
+        {{ form.notes(cols=32, rows=4) }}
+    </span>
+    <span class="form-info-messages">
+        {% for error in form.title.errors %}
+        <span class="form-error error"><b>Title:</b> {{ error }}</span>
+        {% endfor %}
+        {% for error in form.author.errors %}
+        <span class="form-error error"><b>Author:</b> {{ error }}</span>
+        {% endfor %}
+        {% for error in form.isbn.errors %}
+        <span class="form-error error"><b>ISBN:</b> {{ error }}</span>
+        {% endfor %}
+        {% for error in form.purch_date.errors %}
+        <span class="form-error error"><b>Purchase Date:</b> {{ error }}</span>
+        {% endfor %}
+        {% for error in form.notes.errors %}
+        <span class="form-error error"><b>Notes:</b> {{ error }}</span>
+        {% endfor %}
+    </span>
+    <span>{{ form.submit() }}</span>
 
-        <p>{{ form.submit() }}</p>
-    </form>
-
-
+</form>
 {% endblock %}

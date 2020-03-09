@@ -80,13 +80,13 @@ def share_library():
             sender=current_app.config['ADMIN'],
             recipients=[form.email.data],
             txt_body=render_template(
-                "email/share_library.txt",
+                "email/share_library_email.txt",
                 lib=lib,
                 recipient=form.email.data,
                 user_email=current_user.email
             ),
             html_body=render_template(
-                "email/share_library.html",
+                "email/share_library_email.html",
                 lib=lib,
                 recipient=form.email.data,
                 user_email=current_user.email
@@ -97,7 +97,7 @@ def share_library():
         return redirect(url_for("my_library.summary"))
 
     return render_template(
-        "email/share_library_with.html",
+        "email/share_library.html",
         title="Share Your Library",
         form=form
     )

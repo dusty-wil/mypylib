@@ -1,32 +1,34 @@
 {% extends "app_shell.html" %}
 
 {% block content %}
-    <h1>My Library</h1>
-    <h4>{{ current_user.email }}</h4>
-    {% if lib %}
-    <ul>
-        {% for entry in lib %}
-        <li>
-            <span>{{ entry.book.title }}</span>
-            <span>By {{ entry.book.author }}</span>
-            <span>ISBN {{ entry.book.isbn }}</span>
-            {% if entry.purch_date %}
-                <span>Date Purchased: {{ entry.purch_date }}</span>
-            {% endif %}
-            {% if entry.notes %}
-                <span>Notes:</span>
-                <span>{{ entry.notes }}</span>
-            {% endif %}
-            <span>
-                <a href="{{ url_for('my_library.del_book_from_lib', book_id=entry.book.id) }}">Remove from my library</a> |
-                <a href="{{ url_for('my_library.edit_lib_entry', book_id=entry.book.id) }}">Edit library entry</a>
-            </span>
-        </li>
-        {% endfor %}
-    </ul>
-    <p>
-        <a href="{{ url_for('email.share_library') }}">Share Library</a>
-    </p>
-    {% endif %}
-
+{% if lib %}
+<ul class="book-list-summary">
+    {% for entry in lib %}
+    <li>
+        <span class="book-list-title">{{ entry.book.title }}</span>
+        <span class="book-list-author">By {{ entry.book.author }}</span>
+        <span class="book-list-isbn"><b>ISBN</b> {{ entry.book.isbn }}</span>
+        {% if entry.purch_date %}
+        <span class="book-list-purch-date"><b>Date Purchased:</b> {{ entry.purch_date }}</span>
+        {% endif %}
+        {% if entry.notes %}
+            <span class="book-list-notes"><b>Notes:</b> {{ entry.notes }}</span>
+        {% endif %}
+        <span class="book-list-links">
+            <a href="{{ url_for('my_library.del_book_from_lib', book_id=entry.book.id) }}">Remove from my library</a> |
+            <a href="{{ url_for('my_library.edit_lib_entry', book_id=entry.book.id) }}">Edit library entry</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<p>
+    <a href="{{ url_for('email.share_library') }}">Share Library</a>
+</p>
+{% else %}
+<h4>Your library is currently empty!</h4>
+<p>
+    Click <a href="{{ url_for('my_library.add_book_to_lib') }}">ADD BOOK TO LIBRARY</a> to get started, or click
+    <a href="{{ url_for('my_library.book_list') }}">ALL BOOKS</a> to see books other users have added.
+</p>
+{% endif %}
 {% endblock %}

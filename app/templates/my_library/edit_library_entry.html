@@ -1,28 +1,25 @@
 {% extends "app_shell.html" %}
 
 {% block content %}
-    <h1>Edit Library Entry</h1>
-    <div>
-        <p>{{ book.title }}</p>
-        <p>By {{ book.author }}</p>
-    </div>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.purch_date.label }}
-            {{ form.purch_date() }}
-            {% for error in form.purch_date.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.notes.label }}
-            {{ form.notes(cols=32, rows=4) }}
-            {% for error in form.notes.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
+<h4>{{ book.title }} by {{ book.author }}</h4>
+<h6>ISBN {{ book.isbn }}</h6>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.purch_date.label }}
+        {{ form.purch_date() }}
+        {% for error in form.purch_date.errors %}
+            <span class="form-error">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.notes.label }}
+        {{ form.notes(cols=32, rows=4) }}
+        {% for error in form.notes.errors %}
+            <span class="form-error">{{ error }}</span>
+        {% endfor %}
+    </p>
 
-        <p>{{ form.submit() }}</p>
-    </form>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}

@@ -6,7 +6,7 @@
     {% if title %}
         MyPyLib: {{ title }}
     {% else %}
-        My Little Python Library
+        My Python Library
     {% endif %}
     </title>
     <link rel="stylesheet" href="/static/css/normalize.css">
@@ -14,33 +14,37 @@
     <link rel="stylesheet" href="/static/css/custom.css">
 </head>
 <body>
-
     <nav class="navbar">
         <div class="container">
             <ul class="navbar-list">
                 <li class="navbar-item">
-                    <a class="navbar-link" href="{{ url_for('my_library.index') }}">My Little Python Library</a>
+                        <h1><a href="{{ url_for('my_library.index') }}">My Python Library</a></h1>
                 </li>
+                <li class="navbar-item  navbar-item-right">
                 {% if current_user.is_anonymous %}
-                    <li class="navbar-item">
                         <a class="navbar-link" href="{{ url_for('auth.login') }}">Log In</a>
-                    </li>
                 {% else %}
-                    <li class="navbar-item">
-                        <a class="navbar-link" href="{{ url_for('my_library.summary') }}">My Library</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="navbar-link" href="{{ url_for('my_library.add_book_to_lib') }}">Add Book to Library</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="navbar-link" href="{{ url_for('my_library.book_list') }}">All Books</a>
-                    </li>
-                    <li class="navbar-item">
+                        {{ current_user.email }} |
                         <a class="navbar-link" href="{{ url_for('auth.logout') }}">Log Out</a>
-                    </li>
                 {% endif %}
+                </li>
             </ul>
         </div>
+        {% if not current_user.is_anonymous %}
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item">
+                    <a class="navbar-link" href="{{ url_for('my_library.summary') }}">My Library</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="navbar-link" href="{{ url_for('my_library.add_book_to_lib') }}">Add Book to Library</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="navbar-link" href="{{ url_for('my_library.book_list') }}">All Books</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=True) %}
@@ -53,6 +57,9 @@
         {% endif %}
     {% endwith %}
     <div class="container">
+        {% if title %}
+            <h2>{{ title }}</h2>
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
 </body>

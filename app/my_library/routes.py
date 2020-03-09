@@ -16,7 +16,8 @@ from app.models.User import User
 @bp.route("/")
 def index():
     return render_template(
-        "my_library/index.html"
+        "my_library/index.html",
+        title="Welcome!"
     )
 
 

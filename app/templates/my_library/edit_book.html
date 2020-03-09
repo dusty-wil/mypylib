@@ -1,27 +1,25 @@
 {% extends "app_shell.html" %}
 
 {% block content %}
-    <h1>Edit Book</h1>
-    <div>
-        <p>ISBN {{ book.isbn }}</p>
-    </div>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}
-            {{ form.title() }}
-            {% for error in form.title.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.author.label }}
-            {{ form.author() }}
-            {% for error in form.author.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
-        </p>
+<h4>{{ book.title }} by {{ book.author }}</h4>
+<h6>ISBN {{ book.isbn }}</h6>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}
+        {{ form.title() }}
+        {% for error in form.title.errors %}
+            <span class="form-error">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.author.label }}
+        {{ form.author() }}
+        {% for error in form.author.errors %}
+            <span class="form-error">{{ error }}</span>
+        {% endfor %}
+    </p>
 
-        <p>{{ form.submit() }}</p>
-    </form>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}
