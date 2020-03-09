@@ -1,0 +1,20 @@
+Hi, {{ recipient }},
+{{ user_email }} has shared their My Little Python Library with you. Check it out below!
+
+{% for entry in lib %}
+----------------------------------------
+{{ entry.book.title }}
+By {{ entry.book.author }}
+ISBN {{ entry.book.isbn }}
+{% if entry.purch_date %}
+    Date Purchased: {{ entry.purch_date }}
+{% endif %}
+{% if entry.notes %}
+    Notes:
+    {{ entry.notes }}
+{% endif %}
+----------------------------------------
+{% endfor %}
+
+Create or edit your own library: {{ url_for('index', _external=True) }}
+

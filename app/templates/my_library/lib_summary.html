@@ -3,8 +3,9 @@
 {% block content %}
     <h1>My Library</h1>
     <h4>{{ current_user.email }}</h4>
-    {% for entry in lib %}
+    {% if lib %}
     <ul>
+        {% for entry in lib %}
         <li>
             <span>{{ entry.book.title }}</span>
             <span>By {{ entry.book.author }}</span>
@@ -21,6 +22,11 @@
                 <a href="{{ url_for('my_library.edit_lib_entry', book_id=entry.book.id) }}">Edit library entry</a>
             </span>
         </li>
+        {% endfor %}
     </ul>
-    {% endfor %}
+    <p>
+        <a href="{{ url_for('email.share_library') }}">Share Library</a>
+    </p>
+    {% endif %}
+
 {% endblock %}
