@@ -9,8 +9,3 @@ class LoginForm(FlaskForm):
 
     remember = BooleanField("Remember Me")
     login = SubmitField("Log In")
-
-
-
-
-

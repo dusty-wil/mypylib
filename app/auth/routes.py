@@ -50,7 +50,7 @@ def login():
 @bp.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return redirect(url_for("my_library.index"))
 
 
 @bp.route("/register", methods=["GET", "POST"])
@@ -72,7 +72,7 @@ def register():
         flash("Check your inbox, we've sent an activation link to {}. ".format(form.email.data) +
               "Please follow the instructions in the email in order to log in.")
 
-        return redirect(url_for("index"))
+        return redirect(url_for("my_library.index"))
 
     return render_template(
         "auth/register.html",

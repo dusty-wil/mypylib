@@ -1,9 +1,8 @@
-from app import app
 from app.email import bp
 from app.email.email import confirm_activation_token
 from app import db
 
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, current_app
 from flask_login import current_user, login_required
 from datetime import datetime
 
@@ -78,7 +77,7 @@ def share_library():
 
         send_mail(
             subject="My Little Python Library: Shared Library",
-            sender=app.config['ADMIN'],
+            sender=current_app.config['ADMIN'],
             recipients=[form.email.data],
             txt_body=render_template(
                 "email/share_library.txt",

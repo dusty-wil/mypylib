@@ -13,6 +13,13 @@ from app.models.UserBooks import UserBooks
 from app.models.User import User
 
 
+@bp.route("/")
+def index():
+    return render_template(
+        "my_library/index.html"
+    )
+
+
 @bp.route("/library")
 @login_required
 def summary():

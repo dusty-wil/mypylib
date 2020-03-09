@@ -16,5 +16,5 @@ ISBN {{ entry.book.isbn }}
 ----------------------------------------
 {% endfor %}
 
-Create or edit your own library: {{ url_for('index', _external=True) }}
+Create or edit your own library: {{ url_for('my_library.index', _external=True) }}
 

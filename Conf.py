@@ -1,12 +1,14 @@
 import os
+from dotenv import load_dotenv
+
 base_dir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(base_dir, ".env"))
 
 
 class Conf:
-    SECRET_KEY = os.environ.get("SECRET_KEY") \
-        or "h0 ly h4n dgr 3n4d 3!"
+    SECRET_KEY = os.environ.get("SECRET_KEY")
 
-    PASSWORD_SALT = "s8dnjeRhsjdfYGjaasakj"
+    PASSWORD_SALT = os.environ.get("PASSWORD_SALT")
 
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") \
         or "sqlite:///" + os.path.join(base_dir, "mypylib.db")
@@ -18,5 +20,5 @@ class Conf:
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMIN = 'mypythonlibrary@gmail.com'
 
+    ADMIN = 'mypythonlibrary@gmail.com'
