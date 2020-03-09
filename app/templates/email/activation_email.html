@@ -1,0 +1,15 @@
+<p>Hiya,</p>
+<p>Thanks for signing up for My Little Python Library!</p>
+<p>To use the site, you'll need to activate your account by confirming your email.</p>
+<p>
+    <a href="{{ url_for('email.activate_email', token=token, _external=True) }}">Click Here</a> or copy and
+    paste the address below into your browser's address bar:
+</p>
+<p>
+    {{ url_for('email.activate_email', token=token, _external=True) }}
+</p>
+<p>
+    If you didn't sign up for My Little Python Library, just ignore this email and the link will expire.
+</p>
+<p>Thanks!</p>
+<p>My Little Python Library Team</p>

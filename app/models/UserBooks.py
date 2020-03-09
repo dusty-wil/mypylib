@@ -1,12 +1,6 @@
 from app import db
 from datetime import datetime
 
-# user_books = db.Table(
-#     "user_books",
-#     db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-#     db.Column("book_id", db.Integer, db.ForeignKey("book.id"), primary_key=True)
-# )
-
 
 class UserBooks(db.Model):
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True)

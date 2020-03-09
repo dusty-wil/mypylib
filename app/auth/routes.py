@@ -9,6 +9,8 @@ from app.models.User import User
 from app.auth.forms.LoginForm import LoginForm
 from app.auth.forms.RegistrationForm import RegistrationForm
 
+from app.email.email import send_activation_email
+
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
@@ -21,6 +23,12 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash("Invalid username or password.")
+            return redirect(url_for("auth.login"))
+
+        if user.verified_date is None:
+            send_activation_email(form.email.data)
+            flash("Please activate your account to log in. " +
+                  "An activation link has been re-sent to {}".format(form.email.data))
             return redirect(url_for("auth.login"))
 
         login_user(user, remember=form.remember.data)
@@ -59,8 +67,12 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash("Registration complete! You can now log in.")
-        return redirect(url_for("auth.login"))
+        send_activation_email(form.email.data)
+
+        flash("Check your inbox, we've sent an activation link to {}. ".format(form.email.data) +
+              "Please follow the instructions in the email in order to log in.")
+
+        return redirect(url_for("index"))
 
     return render_template(
         "auth/register.html",

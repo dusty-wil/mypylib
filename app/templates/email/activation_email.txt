@@ -1,0 +1,12 @@
+Hiya,
+
+Thanks for signing up for My Little Python Library!
+To use the site, you'll need to activate your account by confirming your email.
+
+Copy and paste the address below into your browser's address bar:
+{{ url_for('email.activate_email', token=token, _external=True) }}
+
+If you didn't sign up for My Little Python Library, just ignore this email and the link will expire.
+
+Thanks!
+My Little Python Library Team
