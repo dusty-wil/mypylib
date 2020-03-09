@@ -19,7 +19,7 @@ def create_app(config_class=Conf):
     app.config.from_object(config_class)
 
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     login.init_app(app)
     mail.init_app(app)
 
@@ -35,4 +35,6 @@ def create_app(config_class=Conf):
     return app
 
 
-from app.models import Book, UserBooks, User
+from app.models.Book import Book
+from app.models.UserBooks import UserBooks
+from app.models.User import User
