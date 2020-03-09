@@ -22,13 +22,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.")
+            flash("Invalid username or password.", category="error")
             return redirect(url_for("auth.login"))
 
         if user.verified_date is None:
             send_activation_email(form.email.data)
             flash("Please activate your account to log in. " +
-                  "An activation link has been re-sent to {}".format(form.email.data))
+                  "An activation link has been re-sent to {}".format(form.email.data), category="info")
             return redirect(url_for("auth.login"))
 
         login_user(user, remember=form.remember.data)
@@ -37,7 +37,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != "":
             next_page = url_for("my_library.summary")
 
-        flash("Logged in as {}".format(user.email))
+        flash("Logged in as {}".format(user.email), category="info")
         return redirect(next_page)
 
     return render_template(
@@ -70,7 +70,7 @@ def register():
         send_activation_email(form.email.data)
 
         flash("Check your inbox, we've sent an activation link to {}. ".format(form.email.data) +
-              "Please follow the instructions in the email in order to log in.")
+              "Please follow the instructions in the email in order to log in.", category="info")
 
         return redirect(url_for("my_library.index"))
 

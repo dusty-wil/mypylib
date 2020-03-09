@@ -11,32 +11,48 @@
     </title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/skeleton.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
 </head>
 <body>
-    <div>
-        My Little Python Library
-        <ul>
-            <li><a href="{{ url_for('my_library.index') }}">Home</a></li>
-            {% if current_user.is_anonymous %}
-                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-            {% else %}
-                <li><a href="{{ url_for('my_library.summary') }}">My Library</a></li>
-                <li><a href="{{ url_for('my_library.add_book_to_lib') }}">Add Book to Library</a></li>
-                <li><a href="{{ url_for('my_library.book_list') }}">All Books</a></li>
-                <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-            {% endif %}
-        </ul>
-    </div>
-    {% with messages = get_flashed_messages() %}
+
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item">
+                    <a class="navbar-link" href="{{ url_for('my_library.index') }}">My Little Python Library</a>
+                </li>
+                {% if current_user.is_anonymous %}
+                    <li class="navbar-item">
+                        <a class="navbar-link" href="{{ url_for('auth.login') }}">Log In</a>
+                    </li>
+                {% else %}
+                    <li class="navbar-item">
+                        <a class="navbar-link" href="{{ url_for('my_library.summary') }}">My Library</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="navbar-link" href="{{ url_for('my_library.add_book_to_lib') }}">Add Book to Library</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="navbar-link" href="{{ url_for('my_library.book_list') }}">All Books</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="navbar-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
+        <div class="container">
+            {% for category, message in messages %}
+                <span class="flash-msg {{ category }}">{{ message }}</span>
             {% endfor %}
-        </ul>
+        </div>
         {% endif %}
     {% endwith %}
-    <div>
+    <div class="container">
         {% block content %}{% endblock %}
     </div>
 </body>

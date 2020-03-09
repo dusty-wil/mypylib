@@ -22,19 +22,19 @@ def activate_email(token):
 
     email = confirm_activation_token(token)
     if not email:
-        flash("The activation link is invalid or expired. Please request another activation email")
+        flash("The activation link is invalid or expired. Please request another activation email", category="error")
         return redirect(url_for("email.resend_activate_email"))
 
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash("The activation link is invalid or expired. Please request another activation email")
+        flash("The activation link is invalid or expired. Please request another activation email", category="error")
         return redirect(url_for("email.resend_activate_email"))
 
     if user.verified_date is None:
         user.verified_date = datetime.now()
         db.session.commit()
 
-    flash("Account has been activated. You can log in!")
+    flash("Account has been activated. You can log in!", category="info")
     return redirect(url_for("auth.login"))
 
 
@@ -49,10 +49,10 @@ def resend_activate_email():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user is not None and user.verified_date is not None:
-            flash("User is already activated. You can log in!")
+            flash("User is already activated. You can log in!", category="info")
             return redirect(url_for("auth.login"))
 
-        flash("An activation link has been re-sent to {}".format(form.email.data))
+        flash("An activation link has been re-sent to {}".format(form.email.data), category="info")
 
         if user is None:
             return redirect(url_for("auth.login"))
@@ -93,7 +93,7 @@ def share_library():
             )
         )
 
-        flash("Your library has been shared with {}!".format(form.email.data))
+        flash("Your library has been shared with {}!".format(form.email.data), category="info")
         return redirect(url_for("my_library.summary"))
 
     return render_template(

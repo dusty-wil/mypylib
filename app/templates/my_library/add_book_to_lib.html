@@ -26,14 +26,14 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.purch_date.label }}<br/>
+            {{ form.purch_date.label }}
             {{ form.purch_date() }}
             {% for error in form.purch_date.errors %}
                 <span class="form-error">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.notes.label }}<br/>
+            {{ form.notes.label }}
             {{ form.notes(cols=32, rows=4) }}
             {% for error in form.notes.errors %}
                 <span class="form-error">{{ error }}</span>

@@ -65,7 +65,7 @@ def add_book_to_lib():
             db.session.add(library_meta)
             db.session.commit()
 
-            flash(add_msg)
+            flash(add_msg, category="info")
 
         return redirect(url_for("my_library.summary"))
 
@@ -83,7 +83,7 @@ def del_book_from_lib(book_id):
     if book:
         current_user.books.remove(book)
         db.session.commit()
-        flash("Entry for {} removed from your library!".format(book.title))
+        flash("Entry for {} removed from your library!".format(book.title), category="info")
 
     return redirect(url_for("my_library.summary"))
 
@@ -104,7 +104,7 @@ def edit_lib_entry(book_id):
         lib_entry.notes = form.notes.data
         db.session.commit()
 
-        flash("Library entry for {} updated!".format(book.title))
+        flash("Library entry for {} updated!".format(book.title), category="info")
         return redirect(url_for("my_library.summary"))
 
     form.purch_date.data = lib_entry.purch_date
@@ -145,7 +145,7 @@ def edit_book(book_id):
         book.author = form.author.data
         db.session.commit()
 
-        flash("Book entry for ISBN {} updated!".format(book.isbn))
+        flash("Book entry for ISBN {} updated!".format(book.isbn), category="info")
         return redirect(url_for("my_library.summary"))
 
     form.title.data = book.title

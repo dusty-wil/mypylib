@@ -8,14 +8,14 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.title.label }}<br/>
+            {{ form.title.label }}
             {{ form.title() }}
             {% for error in form.title.errors %}
                 <span class="form-error">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.author.label }}<br/>
+            {{ form.author.label }}
             {{ form.author() }}
             {% for error in form.author.errors %}
                 <span class="form-error">{{ error }}</span>
