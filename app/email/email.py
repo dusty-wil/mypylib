@@ -12,7 +12,7 @@ def send_mail(subject, sender, recipients, txt_body, html_body):
 
 
 def send_activation_email(email):
-    token = generate_activation_token(email)
+    token = generate_token(email)
     send_mail(
         subject="My Python Library: Activate Your Account",
         sender=current_app.config['ADMIN'],
@@ -22,12 +22,23 @@ def send_activation_email(email):
     )
 
 
-def generate_activation_token(email):
+def send_password_reset_email(user):
+    token = generate_token(user.email)
+    send_mail(
+        subject="My Python Library: Reset Your Password",
+        sender=current_app.config['ADMIN'],
+        recipients=[user.email],
+        txt_body=render_template("email/password_reset_email.txt", token=token),
+        html_body=render_template("email/password_reset_email.html", token=token)
+    )
+
+
+def generate_token(email):
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     return serializer.dumps(email, salt=current_app.config['PASSWORD_SALT'])
 
 
-def confirm_activation_token(token, expiration=3600):
+def confirm_token(token, expiration=3600):
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     try:
         email = serializer.loads(token, salt=current_app.config['PASSWORD_SALT'], max_age=expiration)

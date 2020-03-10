@@ -8,11 +8,13 @@ from werkzeug.urls import url_parse
 from app.models.User import User
 from app.auth.forms.LoginForm import LoginForm
 from app.auth.forms.RegistrationForm import RegistrationForm
+from app.auth.forms.RequestPasswordResetForm import RequestPasswordResetForm
+from app.auth.forms.ResendActivationForm import ResendActivationForm
 
-from app.email.email import send_activation_email
+from app.email.email import send_activation_email, send_password_reset_email
 
 
-@bp.route("/login", methods=["GET", "POST"])
+@bp.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("my_library.summary"))
@@ -53,7 +55,7 @@ def logout():
     return redirect(url_for("my_library.index"))
 
 
-@bp.route("/register", methods=["GET", "POST"])
+@bp.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("my_library.summary"))
@@ -80,3 +82,52 @@ def register():
         form=form
     )
 
+
+@bp.route("/forgot", methods=['GET', 'POST'])
+def request_password_reset():
+    if current_user.is_authenticated:
+        return redirect(url_for("my_library.summary"))
+
+    form = RequestPasswordResetForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash("Check your email for the next steps to reset your password!", category="info")
+        return redirect(url_for("auth.login"))
+
+    return render_template(
+        "auth/request_password_reset.html",
+        title="Forgot Your Password?",
+        form=form
+    )
+
+
+@bp.route("/activate/resend", methods=['GET', 'POST'])
+def resend_activate_email():
+    if current_user.is_authenticated:
+        return redirect(url_for("my_library.summary"))
+
+    form = ResendActivationForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user is not None and user.verified_date is not None:
+            flash("User is already activated. You can log in!", category="info")
+            return redirect(url_for("auth.login"))
+
+        flash("An activation link has been re-sent to {}".format(form.email.data), category="info")
+
+        if user is None:
+            return redirect(url_for("auth.login"))
+
+        send_activation_email(form.email.data)
+        return redirect(url_for("auth.login"))
+
+    return render_template(
+        "auth/resend_sctivation.html",
+        title="Resend Activation Link",
+        form=form
+    )

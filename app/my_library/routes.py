@@ -1,13 +1,16 @@
 from app.my_library import bp
 from app import db
 
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, current_app
 from flask_login import current_user, login_required
 from datetime import datetime
+
+from app.email.email import send_mail
 
 from app.my_library.forms.BookLibForm import BookLibForm
 from app.my_library.forms.LibEntryForm import LibEntryForm
 from app.my_library.forms.BookForm import BookForm
+from app.my_library.forms.ShareLibraryForm import ShareLibraryForm
 
 from app.models.Book import Book
 from app.models.UserBooks import UserBooks
@@ -181,4 +184,40 @@ def edit_book(book_id):
         title="Edit Book",
         form=form,
         book=book
+    )
+
+
+@bp.route("/library/share", methods=["GET", "POST"])
+@login_required
+def share_library():
+    form = ShareLibraryForm()
+
+    if form.validate_on_submit():
+        lib = UserBooks.query.join(Book).join(User).filter_by(id=current_user.id).all()
+
+        send_mail(
+            subject="My Python Library: Shared Library",
+            sender=current_app.config['ADMIN'],
+            recipients=[form.email.data],
+            txt_body=render_template(
+                "email/share_library_email.txt",
+                lib=lib,
+                recipient=form.email.data,
+                user_email=current_user.email
+            ),
+            html_body=render_template(
+                "email/share_library_email.html",
+                lib=lib,
+                recipient=form.email.data,
+                user_email=current_user.email
+            )
+        )
+
+        flash("Your library has been shared with {}!".format(form.email.data), category="info")
+        return redirect(url_for("my_library.summary"))
+
+    return render_template(
+        "my_library/share_library.html",
+        title="Share Your Library",
+        form=form
     )

@@ -24,7 +24,8 @@
 
         <p>{{ form.login() }}</p>
         <p>
-            <b>No account? Create one <a href="{{ url_for('auth.register') }}">here</a>!</b>
+            <b>No account? Create one <a href="{{ url_for('auth.register') }}">here</a>!</b><br/>
+            <b>Forgot your password? Click <a href="{{ url_for('auth.request_password_reset') }}">here</a> to reset it!</b>
         </p>
     </form>
 {% endblock %}
