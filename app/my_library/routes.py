@@ -54,6 +54,7 @@ def add_book_to_lib(book_id=None):
             book=book,
             user=current_user
         )
+
         db.session.add(library_meta)
         db.session.commit()
 

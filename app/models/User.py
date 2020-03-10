@@ -11,10 +11,13 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     registration_date = db.Column(db.DateTime, index=True, nullable=False, default=datetime.utcnow)
     verified_date = db.Column(db.DateTime, index=True, nullable=True)
-    books = db.relationship("Book", secondary="user_books", backref=db.backref("User"))
 
-    def add_book_to_library(self, book_meta):
-        self.books.append(book_meta)
+    # backref is used to declare a relationship on the second table as well.
+    # books = db.relationship("Book", secondary="user_books", backref=db.backref("User"))
+    # if relationships are being defined separately in each table, use back_populates instead
+    # users = db.relationship("Book", secondary="user_books", back_populates="users")
+    # however, in this case the backrefs are defined using the association table
+    books = db.relationship("Book", secondary="user_books")
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
