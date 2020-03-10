@@ -10,7 +10,7 @@
                 <span class=book-list-isbn><b>ISBN</b> {{ book.isbn }}</span>
                 <span class="book-list-links">
                     <a href="{{ url_for('my_library.edit_book', book_id=book.id) }}">Edit book</a> |
-                    <a href="">Add to my library</a>
+                    <a href="{{ url_for('my_library.add_book_to_lib', book_id=book.id) }}">Add to my library</a>
                 </span>
             </li>
         {% endfor %}

@@ -3,6 +3,7 @@ from app import db
 
 from flask import render_template, flash, redirect, url_for
 from flask_login import current_user, login_required
+from datetime import datetime
 
 from app.my_library.forms.BookLibForm import BookLibForm
 from app.my_library.forms.LibEntryForm import LibEntryForm
@@ -34,8 +35,30 @@ def summary():
 
 
 @bp.route("/library/books/add", methods=["GET", "POST"])
+@bp.route("/library/books/add/<int:book_id>", methods=["GET"])
 @login_required
-def add_book_to_lib():
+def add_book_to_lib(book_id=None):
+    if book_id:
+        book = Book.query.filter_by(id=book_id).first()
+
+        if not book:
+            flash("This book doesn't exist!", category="error")
+            return redirect(url_for("my_library.summary"))
+
+        if book in current_user.books:
+            flash("This book is already in your library!", category="info")
+            return redirect(url_for("my_library.book_list"))
+
+        library_meta = UserBooks(
+            purch_date=datetime.now(),
+            book=book,
+            user=current_user
+        )
+        db.session.add(library_meta)
+        db.session.commit()
+
+        return redirect(url_for("my_library.edit_lib_entry", book_id=book.id))
+
     form = BookLibForm()
 
     if form.validate_on_submit():

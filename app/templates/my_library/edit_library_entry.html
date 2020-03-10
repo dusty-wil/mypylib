@@ -8,18 +8,19 @@
     <p>
         {{ form.purch_date.label }}
         {{ form.purch_date() }}
-        {% for error in form.purch_date.errors %}
-            <span class="form-error">{{ error }}</span>
-        {% endfor %}
     </p>
     <p>
         {{ form.notes.label }}
         {{ form.notes(cols=32, rows=4) }}
-        {% for error in form.notes.errors %}
-            <span class="form-error">{{ error }}</span>
-        {% endfor %}
     </p>
-
+    <span class="form-info-messages">
+        {% for error in form.purch_date.errors %}
+            <span class="form-error error"><b>Purchase Date:</b> {{ error }}</span>
+        {% endfor %}
+        {% for error in form.notes.errors %}
+            <span class="form-error error"><b>Notes:</b> {{ error }}</span>
+        {% endfor %}
+    </span>
     <p>{{ form.submit() }}</p>
 </form>
 {% endblock %}

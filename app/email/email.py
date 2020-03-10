@@ -14,7 +14,7 @@ def send_mail(subject, sender, recipients, txt_body, html_body):
 def send_activation_email(email):
     token = generate_activation_token(email)
     send_mail(
-        subject="My Little Python Library: Activate Your Account",
+        subject="My Python Library: Activate Your Account",
         sender=current_app.config['ADMIN'],
         recipients=[email],
         txt_body=render_template("email/activation_email.txt", token=token),

@@ -7,14 +7,14 @@
 <ul>
     {% for entry in lib %}
     <li>
-        <span>{{ entry.book.title }}</span>
-        <span>By {{ entry.book.author }}</span>
+        <span>{{ entry.book.title }}</span><br/>
+        <span>By {{ entry.book.author }}</span><br/>
         <span>ISBN {{ entry.book.isbn }}</span>
         {% if entry.purch_date %}
-            <span>Date Purchased: {{ entry.purch_date }}</span>
+            <br/><span>Date Purchased: {{ entry.purch_date }}</span>
         {% endif %}
         {% if entry.notes %}
-            <span>Notes:</span>
+            <br/><span>Notes:</span>
             <span>{{ entry.notes }}</span>
         {% endif %}
     </li>

@@ -76,7 +76,7 @@ def share_library():
         lib = UserBooks.query.join(Book).join(User).filter_by(id=current_user.id).all()
 
         send_mail(
-            subject="My Little Python Library: Shared Library",
+            subject="My Python Library: Shared Library",
             sender=current_app.config['ADMIN'],
             recipients=[form.email.data],
             txt_body=render_template(

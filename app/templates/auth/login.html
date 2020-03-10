@@ -6,18 +6,22 @@
         <p>
             {{ form.email.label }}
             {{ form.email(size=64) }}
-            {% for error in form.email.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
         </p>
         <p>
             {{ form.password.label }}
             {{ form.password(size=64) }}
-            {% for error in form.password.errors %}
-                <span class="form-error">{{ error }}</span>
-            {% endfor %}
         </p>
         <p>{{ form.remember() }} <span class="inline-label"> {{ form.remember.label }}</span></p>
+
+        <span class="form-info-messages">
+            {% for error in form.email.errors %}
+                <span class="form-error error"><b>Email:</b> {{ error }}</span>
+            {% endfor %}
+            {% for error in form.password.errors %}
+                <span class="form-error error"><b>Password:</b> {{ error }}</span>
+            {% endfor %}
+        </span>
+
         <p>{{ form.login() }}</p>
         <p>
             <b>No account? Create one <a href="{{ url_for('auth.register') }}">here</a>!</b>
