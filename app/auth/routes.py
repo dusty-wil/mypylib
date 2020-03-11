@@ -104,7 +104,7 @@ def request_password_reset():
     )
 
 
-@bp.route("/activate/resend", methods=['GET', 'POST'])
+@bp.route("/activate/resend", methods=['GET', 'POST'])  # this isn't linked anywhere, but i added it in just in case
 def resend_activate_email():
     if current_user.is_authenticated:
         return redirect(url_for("my_library.summary"))
