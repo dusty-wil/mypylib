@@ -127,7 +127,7 @@ def resend_activate_email():
         return redirect(url_for("auth.login"))
 
     return render_template(
-        "auth/resend_sctivation.html",
+        "auth/resend_activation.html",
         title="Resend Activation Link",
         form=form
     )

@@ -2,13 +2,20 @@ from flask_mail import Message
 from flask import render_template, current_app
 from app import mail
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
+from threading import Thread
 
 
 def send_mail(subject, sender, recipients, txt_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = txt_body
     msg.html = html_body
-    mail.send(msg)
+    # extract application instance from proxy object when passing to thread
+    Thread(target=send_mail_async, args=(current_app._get_current_object(), msg)).start()
+
+
+def send_mail_async(app, msg):
+    with app.app_context():
+        mail.send(msg)
 
 
 def send_activation_email(email):
